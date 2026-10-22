@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ali-nonsense"
+version = "0.1.0"
+description = "Command-line browser for AliExpress with budget-aware shopping"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1",
+    "lxml>=5.0",
+    "requests>=2.31",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+browser = ["playwright>=1.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+ali = "ali.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["F", "E", "W", "I", "UP", "B", "SIM", "RET", "C4"]
+
+[tool.ruff.lint.per-file-ignores]
+# Fixtures are verbatim copies of the site's markup, so long lines are expected.
+"tests/*" = ["E501"]
